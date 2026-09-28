@@ -125,6 +125,76 @@ public class App2 extends Application {
         default: return 0.0;
         }
     }
+    
+    private double getAppetizerPrice(String item) {
+        if (item == null) return 0.0;
+        switch (item) {
+        case "Soup": return 4.50;
+        case "Salad": return 3.75;
+        case "Spring Rolls": return 5.25;
+        case "Garlic Bread": return 3.00;
+        case "Chips and Salsa": return 6.95;
+        default: return 0.0;
+        }   
+    }
+    
+    private double getMainCoursePrice(String item) {
+        if (item == null) return 0.0;
+        switch (item) {
+        case "Steak": return 15.00;
+        case "Grilled Chicken": return 13.50;
+        case "Chicken Alfredo": return 13.95;
+        case "Turkey Club": return 11.90;
+        case "Shrimp Scampi": return 18.99;
+        case "Pasta": return 11.75;
+        case "Fish and Chips": return 12.25;
+        default: return 0.0;
+        }
+    }
+
+    private double getDessertPrice(String item) {
+        if (item == null) return 0.0;
+        switch (item) {
+        case "Apple Pie": return 5.95;
+        case "Carrot Cake": return 4.50;
+        case "Mud Pie": return 4.75;
+        case "Pudding": return 3.25;
+        case "Apple Crisp": return 5.98;
+        default: return 0.0;
+        }
+    }
+
+    private void calculateBill() {
+        double subtotal = 0.0;
+
+        subtotal += getBeveragePrice(beverageCombo.getValue());
+        subtotal += getAppetizerPrice(appetizerCombo.getValue());
+        subtotal += getMainCoursePrice(mainCourseCombo.getValue());
+        subtotal += getDessertPrice(dessertCombo.getValue());
+
+        double tax = subtotal * TAX_RATE;
+        double tipPercent = tipSlider.getValue();
+        double tip = subtotal * (tipPercent / 100.0);
+        double total = subtotal + tax + tip;
+
+        subtotalLabel.setText(String.format("$%.2f", subtotal));
+        taxLabel.setText(String.format("$%.2f", tax));
+        tipLabel.setText(String.format("$%.2f (%.0f%%)", tip, tipPercent));
+        totalLabel.setText(String.format("$%.2f", total));
+        }
+
+        private void clearBill() {
+        beverageCombo.setValue("-- None --");
+        appetizerCombo.setValue("-- None --");
+        mainCourseCombo.setValue("-- None --");
+        dessertCombo.setValue("-- None --");
+        tipSlider.setValue(15);
+
+        subtotalLabel.setText("$0.00");
+        taxLabel.setText("$0.00");
+        tipLabel.setText("$0.00");
+        totalLabel.setText("$0.00");
+    }
 
     public static void main(String[] args) {
         launch(args);
