@@ -5,6 +5,8 @@
 package com.mycompany.lab5_roshan;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -111,6 +113,19 @@ public class App2 extends Application {
         stage.show();
     }
     
+    private double getBeveragePrice(String item) {
+        if (item == null) return 0.0;
+        switch (item) {
+        case "Coffee": return 2.50;
+        case "Tea": return 2.00;
+        case "Soft Drink": return 1.75;
+        case "Water": return 2.95;
+        case "Milk": return 1.50;
+        case "Juice": return 2.50;
+        default: return 0.0;
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
