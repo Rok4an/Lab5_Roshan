@@ -3,6 +3,7 @@ package com.mycompany.lab5_roshan;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -49,6 +50,32 @@ public class App extends Application {
        rbSmall.setToggleGroup(sizeGroup);
        rbMedium.setToggleGroup(sizeGroup);
        rbLarge.setToggleGroup(sizeGroup);
+       
+       HBox sizeBox = new HBox(15, new Label("Size"), rbSmall, rbMedium, rbLarge);
+       sizeBox.setAlignment(Pos.CENTER_LEFT);
+       
+       Button orderButton = new Button("Order");
+       Button clearButton = new Button("Clear");
+       HBox buttonBox = new HBox(15, orderButton, clearButton);
+       
+       Label resultLabel = new Label();
+       
+       orderButton.setOnAction(e -> {
+           String selectedBag = bagListView.getSelectionModel().getSelectedItem();
+           Integer selectedQty = quantityCombo.getValue();
+           RadioButton selectedRadio = (RadioButton) sizeGroup.getSelectedToggle();
+           
+           if (selectedBag ==  null) {
+               resultLabel.setText("Please select a bag type.");
+           } else if (selectedQty == null ) {
+               resultLabel.setText("Please select a quantity.");
+           } else if (selectedRadio == null) {
+               resultLabel.setText("Please select a bag size.");
+           } else {
+               String size = selectedRadio.getText();
+               resultLabel.setText(String.format("You ordered %d %s %s Bag(s).", selectedQty, size, selectedBag));
+           }
+       });
     }
 
     public static void main(String[] args) {
