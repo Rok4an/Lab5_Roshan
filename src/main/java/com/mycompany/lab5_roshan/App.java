@@ -1,6 +1,7 @@
 package com.mycompany.lab5_roshan;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -76,6 +78,29 @@ public class App extends Application {
                resultLabel.setText(String.format("You ordered %d %s %s Bag(s).", selectedQty, size, selectedBag));
            }
        });
+       
+       clearButton.setOnAction(e -> {
+           bagListView.getSelectionModel().clearSelection();
+           quantityCombo.setValue(null);
+           sizeGroup.selectToggle(null);
+           resultLabel.setText("");
+       });
+       
+       VBox root = new VBox(15);
+       root.setPadding(new Insets(20));
+       root.getChildren().addAll(
+       titleLabel, new Label("Select Bag Type: "),
+       bagListView,
+       quantityBox,
+       sizeBox,
+       buttonBox,
+       resultLabel
+       );
+       
+       Scene scene = new Scene(root, 360, 420);
+       stage.setTitle("Bag Order Application");
+       stage.setScene(scene);
+       stage.show();
     }
 
     public static void main(String[] args) {
